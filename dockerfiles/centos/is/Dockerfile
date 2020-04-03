@@ -54,7 +54,7 @@ RUN \
     && echo ${MOTD} > /etc/profile.d/motd.sh
 
 # copy init script to user home
-COPY --chown=wso2carbon:wso2 docker-entrypoint.sh ${USER_HOME}/
+COPY --chown=wso2carbon:wso2 dockerfiles/centos/is/docker-entrypoint.sh ${USER_HOME}/
 # install required packages
 RUN \
     yum -y update \
@@ -82,7 +82,7 @@ ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/dnsjava/dnsjava/${DNS
 ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/org/wso2/carbon/kubernetes/artifacts/kubernetes-membership-scheme/${K8S_MEMBERSHIP_SCHEME_VERSION}/kubernetes-membership-scheme-${K8S_MEMBERSHIP_SCHEME_VERSION}.jar ${WSO2_SERVER_HOME}/repository/components/dropins/
 # add MySQL JDBC connector to server home as a third party library
 ADD --chown=wso2carbon:wso2 https://repo1.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_CONNECTOR_VERSION}/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar ${WSO2_SERVER_HOME}/repository/components/dropins/
-
+ADD --chown=wso2carbon:wso2 https://clojars.org/repo/com/microsoft/sqlserver/sqljdbc4/4.0/sqljdbc4-4.0.jar ${WSO2_SERVER_HOME}/repository/components/lib/
 # set the user and work directory
 USER ${USER_ID}
 WORKDIR ${USER_HOME}
